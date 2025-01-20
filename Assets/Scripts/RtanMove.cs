@@ -9,6 +9,9 @@ public class RtanMove : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
 
+    float dir_key = 0;
+    float dir_mouse = 1;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -17,25 +20,67 @@ public class RtanMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        //MoveToWall();
+        //FlipbyMouse();
+        MovebyKey();
+        FlipbyKey();
 
-        if(Input.GetAxis("Horizontal") < 0)
+    }
+
+    void MovebyKey()
+    {
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            dir_key = Input.GetAxis("Horizontal");
+
+            if (dir_key > 0 && transform.position.x > 2.4)
+                return;
+            else if (dir_key < 0 && transform.position.x < -2.4)
+                return;
+
+            transform.Translate(new Vector3(dir_key * speed * Time.deltaTime, 0, 0));
+        }
+    }
+
+    void MoveToWall()
+    {
+        if (transform.position.x >= 2.4)
+        {
+            dir_mouse = -1;
+            spriteRenderer.flipX = true;
+        }
+        else if (transform.position.x <= -2.4)
+        {
+            dir_mouse = 1;
+            spriteRenderer.flipX = false;
+        }
+
+        transform.Translate(new Vector3(dir_mouse * speed * Time.deltaTime, 0, 0));
+    }
+
+    void FlipbyKey()
+    {
+        if (Input.GetAxis("Horizontal") < 0 || (spriteRenderer.flipX = false && Input.GetMouseButton(0)))
         {
             spriteRenderer.flipX = true;
         }
-        else if(Input.GetAxis("Horizontal") > 0)
+        else if (Input.GetAxis("Horizontal") > 0 || (spriteRenderer.flipX = true && Input.GetMouseButton(0)))
         {
             spriteRenderer.flipX = false;
         }
     }
 
-    void Move()
+    void FlipbyMouse()
     {
-        if (Input.GetAxis("Horizontal") != 0)
+        if (Input.GetMouseButtonDown(0) && !spriteRenderer.flipX)
         {
-            float dir = Input.GetAxis("Horizontal");
-
-            transform.Translate(new Vector3(dir * speed * Time.deltaTime, 0, 0));
+            spriteRenderer.flipX = true;
+            dir_mouse = -1;
+        }
+        else if (Input.GetMouseButtonDown(0) && spriteRenderer.flipX)
+        {
+            spriteRenderer.flipX = false;
+            dir_mouse = 1;
         }
     }
 }
