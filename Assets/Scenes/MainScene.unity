@@ -370,10 +370,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ce8bbfe09edaf469ef770084f81a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Raindrop: {fileID: 4352921607586561726, guid: dd348f057b7dc9447a924af15a6c0fba, type: 3}
+  Raindrops:
+  - {fileID: 4352921607586561726, guid: dd348f057b7dc9447a924af15a6c0fba, type: 3}
+  - {fileID: 4352921607586561726, guid: aa91f0b11fae366468c08450248492e4, type: 3}
   target: {fileID: 1055371781}
   gamemanager: {fileID: 1999961621}
-  waitTime: 0.1
+  waitTime: 0.3
 --- !u!4 &117936368
 Transform:
   m_ObjectHideFlags: 0
@@ -884,7 +886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &824694018
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1567,7 +1569,7 @@ MonoBehaviour:
   scoreText: {fileID: 1590272079}
   timeText: {fileID: 1780016145}
   gamaEnd: {fileID: 824694017}
-  setTime: 10
+  setTime: 30
 --- !u!4 &1999961622
 Transform:
   m_ObjectHideFlags: 0

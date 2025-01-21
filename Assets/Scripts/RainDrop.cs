@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RainDrop : MonoBehaviour
 {
-    public GameObject Raindrop;
+    public GameObject[] Raindrops = new GameObject[2];
     public Transform target;
     public Gamemanager gamemanager;
 
@@ -31,7 +31,20 @@ public class RainDrop : MonoBehaviour
     {
         Vector3 tempPos = transform.position;
         tempPos.x = Random.Range(-2.4f, 2.4f);
-        GameObject rain = Instantiate(Raindrop, tempPos, transform.rotation);
+
+        int tempNum = Random.Range(0, 10);
+
+        GameObject rain;
+
+        if (tempNum < 6)
+        {
+            rain = Instantiate(Raindrops[0], tempPos, transform.rotation);
+        }
+        else
+        {
+            rain = Instantiate(Raindrops[1], tempPos, transform.rotation);
+        }
+
         rain.GetComponent<Rain>()._target = target;
     }
 }

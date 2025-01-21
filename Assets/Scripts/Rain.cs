@@ -8,6 +8,7 @@ public class Rain : MonoBehaviour
 {
     public float drop_speed = 10;
     public Transform _target;
+    public int score;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
@@ -15,7 +16,16 @@ public class Rain : MonoBehaviour
     {
         transform.localScale *= Random.Range(0.2f, 0.8f);
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = new Color(112f/255f, 221f / 255f, 255f / 255f, Random.Range(100f, 255f) / 255f);
+
+        if(score == 1)
+        {
+            spriteRenderer.color = new Color(112f / 255f, 221f / 255f, 255f / 255f, Random.Range(100f, 255f) / 255f);
+        }
+        else
+        {
+            spriteRenderer.color = new Color(1, 0, 160f / 255f, Random.Range(100f, 255f) / 255f);
+        }
+
         drop_speed = Random.Range(3f, 12f);
 
     }
@@ -31,7 +41,7 @@ public class Rain : MonoBehaviour
         if (distace < (transform.localScale.x/2 + _target.localScale.x/2))
         {
             Debug.Log("touch");
-            Gamemanager.instance.AddScore(1);
+            Gamemanager.instance.AddScore(score);
             Destroy(gameObject);
         }
 
